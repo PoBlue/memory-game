@@ -8,6 +8,9 @@ let symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', '
 		$ratingStars = $('.fa-star'),
 		$restart = $('.restart'),
 		delay = 400,
+		currentTimer,
+    second = 0,
+    $timer = $('.timer'),
 		totalCard = symbols.length / 2,
 		rank3stars = 10,
 		rank2stars = 16,
@@ -39,6 +42,11 @@ function initGame() {
 		$deck.append($('<li class="card"><i class="fa fa-' + cards[i] + '"></i></li>'))
 	}
 	addCardListener();
+
+	resetTimer(currentTimer);
+	second = 0;
+	$timer.text(`${second}`)
+	initTime();
 };
 
 // Set Rating and final Score
@@ -63,7 +71,7 @@ function endGame(moves, score) {
 		allowEscapeKey: false,
 		allowOutsideClick: false,
 		title: 'Congratulations! You Won!',
-		text: 'With ' + moves + ' Moves and ' + score + ' Stars.\n Woooooo!',
+		text: 'With ' + moves + ' Moves and ' + score + ' Stars in ' + second + ' Second.\n Woooooo!',
 		type: 'success',
 		confirmButtonColor: '#02ccba',
 		confirmButtonText: 'Play again!'
@@ -138,5 +146,19 @@ var addCardListener = function () {
 		}
 	});
 };
+
+
+function initTime() {
+	currentTimer = setInterval(function() {
+			$timer.text(`${second}`)
+			second = second + 1
+	}, 1000);
+}
+
+function resetTimer(timer) {
+	if(timer) {
+		clearInterval(timer);
+	}
+}
 
 initGame();
