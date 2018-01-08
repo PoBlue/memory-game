@@ -1,17 +1,17 @@
-var symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'],
+let symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'],
 		opened = [],
 		match = 0,
 		moves = 0,
-		$deck = jQuery('.deck'),
+		$deck = $('.deck'),
 		$scorePanel = $('#score-panel'),
 		$moveNum = $('.moves'),
-		$ratingStars = $('i'),
+		$ratingStars = $('.fa-star'),
 		$restart = $('.restart'),
-		delay = 800,
-		gameCardsQTY = symbols.length / 2,
-		rank3stars = gameCardsQTY + 2,
-		rank2stars = gameCardsQTY + 6,
-		rank1stars = gameCardsQTY + 10;
+		delay = 400,
+		totalCard = symbols.length / 2,
+		rank3stars = 10,
+		rank2stars = 16,
+		rank1stars = 20;
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -93,49 +93,50 @@ $restart.bind('click', function() {
   })
 });
 
-var addCardListener = function() {
+var addCardListener = function () {
 
-// Card flip
-$deck.find('.card:not(".match, .open")').bind('click' , function() {
-	if($('.show').length > 1) { return true; }
-	
-	var $this = $(this),
-			card = $this.context.innerHTML;
-  $this.addClass('open show');
-	opened.push(card);
+	// Card flip
+	$deck.find('.card').bind('click', function () {
+		var $this = $(this)
 
-	// Compare with opened card
-  if (opened.length > 1) {
-    if (card === opened[0]) {
-      $deck.find('.open').addClass('match animated infinite rubberBand');
-      setTimeout(function() {
-        $deck.find('.match').removeClass('open show animated infinite rubberBand');
-      }, delay);
-      match++;
-    } else {
-      $deck.find('.open').addClass('notmatch animated infinite wobble');
-			setTimeout(function() {
-				$deck.find('.open').removeClass('animated infinite wobble');
-			}, delay / 1.5);
-      setTimeout(function() {
-        $deck.find('.open').removeClass('open show notmatch animated infinite wobble');
-      }, delay);
-    }
-    opened = [];
-		moves++;
-		setRating(moves);
-		$moveNum.html(moves);
-  }
-	
-	// End Game if match all cards
-	if (gameCardsQTY === match) {
-		setRating(moves);
-		var score = setRating(moves).score;
-		setTimeout(function() {
-			endGame(moves, score);
-		}, 500);
-  }
-});
+		if ($this.hasClass('show') || $this.hasClass('match')) { return true; }
+
+		var card = $this.context.innerHTML;
+		$this.addClass('open show');
+		opened.push(card);
+
+		// Compare with opened card
+		if (opened.length > 1) {
+			if (card === opened[0]) {
+				$deck.find('.open').addClass('match animated infinite rubberBand');
+				setTimeout(function () {
+					$deck.find('.match').removeClass('open show animated infinite rubberBand');
+				}, delay);
+				match++;
+			} else {
+				$deck.find('.open').addClass('notmatch animated infinite wobble');
+				setTimeout(function () {
+					$deck.find('.open').removeClass('animated infinite wobble');
+				}, delay / 1.5);
+				setTimeout(function () {
+					$deck.find('.open').removeClass('open show notmatch animated infinite wobble');
+				}, delay);
+			}
+			opened = [];
+			moves++;
+			setRating(moves);
+			$moveNum.html(moves);
+		}
+
+		// End Game if match all cards
+		if (totalCard === match) {
+			setRating(moves);
+			var score = setRating(moves).score;
+			setTimeout(function () {
+				endGame(moves, score);
+			}, 500);
+		}
+	});
 };
 
 initGame();
