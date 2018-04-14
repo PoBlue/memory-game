@@ -171,7 +171,7 @@ var addCardListener = function () {
 
 function initTime() {
 	currentTimer = setInterval(function () {
-		$timer.text(`${second}`)
+	    $timer.text(`Time ${second}`)
 		second = second + 1
 	}, 1000);
 }
