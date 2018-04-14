@@ -1,22 +1,26 @@
-let symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'],
-	opened = [],
-	match = 0,
-	moves = 0,
-	$deck = $('.deck'),
-	$scorePanel = $('#score-panel'),
-	$moveNum = $('.moves'),
-	$ratingStars = $('.fa-star'),
-	$restart = $('.restart'),
-	delay = 400,
-	currentTimer,
-	second = 0,
-	$timer = $('.timer'),
-	totalCard = symbols.length / 2,
-	rank3stars = 10,
-	rank2stars = 16,
-	rank1stars = 20;
+let fa_icons= [ '-bicycle', '-leaf', '-cube', '-anchor', '-paper-plane-o', '-bolt', '-bomb', '-diamond', 'diamond'],
+    chars = [ 'a', 'b', 'd', 'e', 's', 'o', 'm', 'n'],
+    symbols = chars,
+    opened = [],
+    match = 0,
+    moves = 0,
+    $deck = $('.deck'),
+    $scorePanel = $('#score-panel'),
+    $moveNum = $('.moves'),
+    $ratingStars = $('.fa-star'),
+    $restart = $('.restart'),
+    $reconfigure = $('.reconfigure'),
+    delay = 400,
+    currentTimer,
+    second = 0,
+    $timer = $('.timer'),
+    totalCard = symbols.length,
+    rank3stars = 10,
+    rank2stars = 16,
+    rank1stars = 20;
 
 function shuffle(array) {
+        array = array.concat(array);
 	var currentIndex = array.length, temporaryValue, randomIndex;
 
 	while (0 !== currentIndex) {
@@ -32,21 +36,25 @@ function shuffle(array) {
 
 // Initial Game
 function initGame() {
-	var cards = shuffle(symbols);
-	$deck.empty();
-	match = 0;
-	moves = 0;
-	$moveNum.text('0');
-	$ratingStars.removeClass('fa-star-o').addClass('fa-star');
-	for (var i = 0; i < cards.length; i++) {
-		$deck.append($('<li class="card"><i class="fa fa-' + cards[i] + '"></i></li>'))
+    var cards = shuffle(symbols);
+    $deck.empty();
+    match = 0;
+    moves = 0;
+    $moveNum.text('0');
+    $ratingStars.removeClass('fa-star-o').addClass('fa-star');
+    for (var i = 0; i < cards.length; i++) {
+	if (cards[i].startsWith("-")) {
+	    $deck.append($('<li class="card"><i class="fa fa' + cards[i] + '"></i></li>'))
+	} else {
+	    $deck.append($('<li class="card"><i class="fa char">' + cards[i] + '</i></li>'))
 	}
-	addCardListener();
+    }
+    addCardListener();
 
-	resetTimer(currentTimer);
-	second = 0;
-	$timer.text(`${second}`)
-	initTime();
+    resetTimer(currentTimer);
+    second = 0;
+    $timer.text(`${second}`)
+    initTime();
 };
 
 // Set Rating and final Score
@@ -100,6 +108,19 @@ $restart.bind('click', function () {
 		}
 	})
 });
+$reconfigure.bind('click', ()=> {
+    console.log("clicked");
+    $('.input.closed').css('display','inline-block');
+    $('#values').val($.unique(symbols).join(" "))
+});
+$('.set-reconfigure').on('click', function(e) {
+    symbols = $('#values').val().split(" ")
+    $('.input.closed').css('display','none');
+    initGame();
+    e.preventDefault();
+    return false;
+});
+
 
 var addCardListener = function () {
 

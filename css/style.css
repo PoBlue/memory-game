@@ -40,7 +40,7 @@ h1 {
   box-shadow: 12px 15px 20px 0px rgba(46, 61, 73, 0.5);
 }
 .deck .card {
-  height: 150px;
+  height: 100px;
   width: 150px;
   background: #2e3d49;
   display: inline-block;
@@ -61,8 +61,13 @@ h1 {
   transition: transform .3s ease;
   transition: transform .3s ease, -webkit-transform .3s ease;
   font-family: FontAwesome;
-  line-height: 150px;
+  line-height: 98px;
 }
+
+.fa.char {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
 
 @media only screen and (max-width: 800px){
   .deck .card{
@@ -120,7 +125,6 @@ h1 {
 
 #score-panel {
   text-align: left;
-  width: 345px;
   margin-bottom: 10px;
 }
 #score-panel .stars {
@@ -133,10 +137,11 @@ h1 {
   list-style: none;
   display: inline-block;
 }
-#score-panel .restart {
+#score-panel .restart, .reconfigure {
   float: right;
   cursor: pointer;
-}
+  margin-left: 1em;
+  }
 
 *::-moz-selection {
   background: transparent;
@@ -152,4 +157,21 @@ h1 {
 
 .font-color {
   color: white;
+}
+.timers {float: right;}
+.timers .timer {display: inline-block;}
+.timers .timer h3 {margin: 0px;}
+.timers .restart {display: inline-block;}
+.timers .reconfigure {display: inline-block;}
+.containerdiv {max-width: 690px; width: 100%; margin: 0 auto;}
+.leftdiv {float: left;}
+.clear {clear: both;}
+.font-color {
+  color: white;
+}
+.closed {
+    display: none;
+}
+.inline {
+    display: inline-block;
 }

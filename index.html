@@ -15,16 +15,29 @@
 <body>
 	<h1>Matching Game</h1>
 	<div id="score-panel">
+	  <div class="leftdiv">
 		<ul class="stars">
 			<li><i class="fa fa-star"></i></li>
 			<li><i class="fa fa-star"></i></li>
 			<li><i class="fa fa-star"></i></li>
 		</ul>
 		<span class="moves">0</span> Moves
-		| Time: <span class="timer">0</span> s
-		<div class="restart">
-			<i class="fa fa-repeat"></i>
-		</div>
+	  </div>
+    <div class="timers">
+      <article class="timer">
+        <h3 class="info">Time: <span class="clock data">0:00</span></h3>
+      </article>
+      <div class="restart">
+    		<i class="fa fa-repeat"></i>
+    	</div>
+      <div class="reconfigure">
+    	<i class="fa fa-cog"></i>
+	<div class="input closed"><input id="values" type="text" value="jeroen"/>
+	  <div class="inline set-reconfigure"><i class="fa fa-check"></i></div>
+	  </div>
+      </div>
+    </div>
+    <div class="clear"></div>
 	</div>
 	<ul class="deck"></ul>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
