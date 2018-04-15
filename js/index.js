@@ -92,6 +92,7 @@ function endGame(moves, score) {
 
 // Restart Game
 $restart.bind('click', function () {
+    console.log("restart clicked");
 	swal({
 		allowEscapeKey: false,
 		allowOutsideClick: false,
@@ -109,15 +110,15 @@ $restart.bind('click', function () {
 	})
 });
 $reconfigure.bind('click', ()=> {
-    console.log("clicked");
+    console.log("cog clicked");
     $('.input.closed').css('display','inline-block');
     $('#values').val($.unique(symbols).join(" "))
 });
 $('.set-reconfigure').on('click', function(e) {
     symbols = $('#values').val().split(" ")
+    console.log('check clicked')
     $('.input.closed').css('display','none');
     initGame();
-    e.preventDefault();
     return false;
 });
 
@@ -125,7 +126,8 @@ $('.set-reconfigure').on('click', function(e) {
 var addCardListener = function () {
 
 	// Card flip
-	$deck.find('.card').bind('click', function () {
+    $deck.find('.card').bind('click', function () {
+	console.log("card clicked")
 		var $this = $(this)
 
 		if ($this.hasClass('show') || $this.hasClass('match')) { return true; }
