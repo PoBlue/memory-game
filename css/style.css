@@ -127,7 +127,7 @@ h1 {
 input {
     font-size: 23px;
     height:30px;
-    width: 22em;
+    width: 16em;
 }
 #score-panel .stars {
   margin: 0;
@@ -144,14 +144,6 @@ input {
   cursor: pointer;
   margin-left: 1em;
   }
-
-*::-moz-selection {
-  background: transparent;
-}
-
-*::selection {
-  background: transparent;
-}
 
 .swal2-overlay {
   background-color: white;

@@ -53,7 +53,7 @@ function initGame() {
 
     resetTimer(currentTimer);
     second = 0;
-    $timer.text(`${second}`)
+    $timer.text(second)
     initTime();
 };
 
