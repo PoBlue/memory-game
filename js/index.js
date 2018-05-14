@@ -115,7 +115,7 @@ $reconfigure.bind('click', ()=> {
     $('#values').val($.unique(symbols).join(" "))
 });
 $('.set-reconfigure').on('click', function(e) {
-    symbols = $('#values').val().split(" ")
+    symbols = $('#values').val().split(/\s+/)
     console.log('check clicked')
     $('.input.closed').css('display','none');
     initGame();
