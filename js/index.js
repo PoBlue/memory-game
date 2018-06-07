@@ -1,22 +1,26 @@
-let symbols = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'],
-	opened = [],
-	match = 0,
-	moves = 0,
-	$deck = $('.deck'),
-	$scorePanel = $('#score-panel'),
-	$moveNum = $('.moves'),
-	$ratingStars = $('.fa-star'),
-	$restart = $('.restart'),
-	delay = 400,
-	currentTimer,
-	second = 0,
-	$timer = $('.timer'),
-	totalCard = symbols.length / 2,
-	rank3stars = 10,
-	rank2stars = 16,
-	rank1stars = 20;
+let fa_icons= [ '-bicycle', '-leaf', '-cube', '-anchor', '-paper-plane-o', '-bolt', '-bomb', '-diamond', 'diamond'],
+    chars = [ 'a', 'b', 'd', 'e', 's', 'o', 'm', 'n'],
+    symbols = chars,
+    opened = [],
+    match = 0,
+    moves = 0,
+    $deck = $('.deck'),
+    $scorePanel = $('#score-panel'),
+    $moveNum = $('.moves'),
+    $ratingStars = $('.fa-star'),
+    $restart = $('.restart'),
+    $reconfigure = $('.reconfigure'),
+    delay = 400,
+    currentTimer,
+    second = 0,
+    $timer = $('.timer'),
+    totalCard = symbols.length,
+    rank3stars = 10,
+    rank2stars = 16,
+    rank1stars = 20;
 
 function shuffle(array) {
+        array = array.concat(array);
 	var currentIndex = array.length, temporaryValue, randomIndex;
 
 	while (0 !== currentIndex) {
@@ -32,21 +36,25 @@ function shuffle(array) {
 
 // Initial Game
 function initGame() {
-	var cards = shuffle(symbols);
-	$deck.empty();
-	match = 0;
-	moves = 0;
-	$moveNum.text('0');
-	$ratingStars.removeClass('fa-star-o').addClass('fa-star');
-	for (var i = 0; i < cards.length; i++) {
-		$deck.append($('<li class="card"><i class="fa fa-' + cards[i] + '"></i></li>'))
+    var cards = shuffle(symbols);
+    $deck.empty();
+    match = 0;
+    moves = 0;
+    $moveNum.text('0');
+    $ratingStars.removeClass('fa-star-o').addClass('fa-star');
+    for (var i = 0; i < cards.length; i++) {
+	if (cards[i].startsWith("-")) {
+	    $deck.append($('<li class="card"><i class="fa fa' + cards[i] + '"></i></li>'))
+	} else {
+	    $deck.append($('<li class="card"><i class="fa char">' + cards[i] + '</i></li>'))
 	}
-	addCardListener();
+    }
+    addCardListener();
 
-	resetTimer(currentTimer);
-	second = 0;
-	$timer.text(`${second}`)
-	initTime();
+    resetTimer(currentTimer);
+    second = 0;
+    $timer.text(second)
+    initTime();
 };
 
 // Set Rating and final Score
@@ -84,6 +92,7 @@ function endGame(moves, score) {
 
 // Restart Game
 $restart.bind('click', function () {
+    console.log("restart clicked");
 	swal({
 		allowEscapeKey: false,
 		allowOutsideClick: false,
@@ -100,11 +109,25 @@ $restart.bind('click', function () {
 		}
 	})
 });
+$reconfigure.bind('click', ()=> {
+    console.log("cog clicked");
+    $('.input.closed').css('display','inline-block');
+    $('#values').val($.unique(symbols).join(" "))
+});
+$('.set-reconfigure').on('click', function(e) {
+    symbols = $('#values').val().split(/\s+/)
+    console.log('check clicked')
+    $('.input.closed').css('display','none');
+    initGame();
+    return false;
+});
+
 
 var addCardListener = function () {
 
 	// Card flip
-	$deck.find('.card').bind('click', function () {
+    $deck.find('.card').bind('click', function () {
+	console.log("card clicked")
 		var $this = $(this)
 
 		if ($this.hasClass('show') || $this.hasClass('match')) { return true; }
@@ -150,7 +173,7 @@ var addCardListener = function () {
 
 function initTime() {
 	currentTimer = setInterval(function () {
-		$timer.text(`${second}`)
+	    $timer.text(`Time ${second}`)
 		second = second + 1
 	}, 1000);
 }

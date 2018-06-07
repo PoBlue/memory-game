@@ -23,6 +23,10 @@ body {
   overflow: hidden;
   font-family: 'Coda', cursive;
 }
+.total-panel {
+  width=100%
+}
+
 
 h1 {
   font-family: 'Open Sans', sans-serif;
@@ -31,7 +35,7 @@ h1 {
 }
 
 .deck {
-  width: 690px;
+  width: 60%;
   margin: 0 auto;
   background: -webkit-linear-gradient(290deg, #02CCBA 0%, #AA7ECD 100%);
   background: linear-gradient(160deg, #02CCBA 0%, #AA7ECD 100%);
@@ -40,11 +44,11 @@ h1 {
   box-shadow: 12px 15px 20px 0px rgba(46, 61, 73, 0.5);
 }
 .deck .card {
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 21%;
   background: #2e3d49;
   display: inline-block;
-  margin: 0 30px 30px 0;
+  margin: 2%;
   line-height: 280px;
   font-size: 0;
   color: #ffffff;
@@ -61,8 +65,13 @@ h1 {
   transition: transform .3s ease;
   transition: transform .3s ease, -webkit-transform .3s ease;
   font-family: FontAwesome;
-  line-height: 150px;
+  line-height: 98px;
 }
+
+.fa.char {
+    font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", cursive;
+}
+
 
 @media only screen and (max-width: 800px){
   .deck .card{
@@ -89,15 +98,6 @@ h1 {
   }
 }
 
-.deck .card:nth-child(4n) {
-  margin: 0 0 15px 0;
-}
-.deck .card:nth-child(n+13) {
-  margin: 0 30px 0 0;
-}
-.deck .card:nth-child(n+13):nth-child(4n) {
-  margin: 0;
-}
 .deck .card.open {
   -webkit-transform: rotateY(0);
           transform: rotateY(0);
@@ -105,23 +105,29 @@ h1 {
   cursor: default;
 }
 .deck .card.show {
-  font-size: 33px;
+  font-size: 45px;
 }
 .deck .card.match {
   -webkit-transform: rotateY(0);
           transform: rotateY(0);
   cursor: default;
   background: #02ccba;
-  font-size: 33px;
+  font-size: 45px;
 }
 .deck .card.notmatch {
   background: #f95c3c;
 }
 
 #score-panel {
+    width: 60%;
   text-align: left;
-  width: 345px;
   margin-bottom: 10px;
+  font-size: 23px;
+}
+input {
+    font-size: 23px;
+    height:30px;
+    width: 16em;
 }
 #score-panel .stars {
   margin: 0;
@@ -133,18 +139,11 @@ h1 {
   list-style: none;
   display: inline-block;
 }
-#score-panel .restart {
+#score-panel .restart, .reconfigure {
   float: right;
   cursor: pointer;
-}
-
-*::-moz-selection {
-  background: transparent;
-}
-
-*::selection {
-  background: transparent;
-}
+  margin-left: 1em;
+  }
 
 .swal2-overlay {
   background-color: white;
@@ -152,4 +151,21 @@ h1 {
 
 .font-color {
   color: white;
+}
+.timers {float: right;}
+.timers .timer {display: inline-block;}
+.timers .timer h3 {margin: 0px;}
+.timers .restart {display: inline-block;}
+.timers .reconfigure {display: inline-block;}
+.containerdiv {max-width: 690px; width: 100%; margin: 0 auto;}
+.leftdiv {float: left;}
+.clear {clear: both;}
+.font-color {
+  color: white;
+}
+.closed {
+    display: none;
+}
+.inline {
+    display: inline-block;
 }
